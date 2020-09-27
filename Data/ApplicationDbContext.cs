@@ -28,5 +28,15 @@ namespace capstone.Data
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder) {
+            builder.Entity<MovieInfo>()
+                .HasData(
+                    new MovieInfo {Id = 1, Title = "Transformers", Director = "Michael Bay", MainCatergory = "Action-Mess", UserRating = 2 },
+                    new MovieInfo {Id = 2, Title = "Endgame", Director = "Rosso Brothers", MainCatergory = "SuperHero", UserRating = 5 },
+                    new MovieInfo {Id = 3, Title = "Sleepless in Seattle", Director = "Nora Ephron", MainCatergory = "Romantic Comedy", UserRating = 4}
+                );
+            base.OnModelCreating(builder);
+        }
     }
 }
