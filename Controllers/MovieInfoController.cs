@@ -15,27 +15,25 @@ namespace capstone.Controllers
     [Route("[controller]")]
     public class MovieInfoController : ControllerBase
     {
+        private ApplicationDbContext _context;
+        public MovieInfoController(ApplicationDbContext context) {
+            _context = context;
+        }
 
         [HttpGet]
         public IEnumerable<MovieInfo> Get()
         {
-            MovieInfo[] movies = null;
-            using (var context = new ApplicationDbContext())
-            {
-                movies = context.MovieInfos.ToArray();
-            }
-            return movies;
-
+                var movies = _context.MovieInfos.ToArray();
+                return movies;
         }
+
         [HttpPost]
         public MovieInfo Post([FromBody]MovieInfo movies)
         {
-            using (var context = new ApplicationDbContext())
-            {
-                context.MovieInfos.Add(movies);
-                context.SaveChanges();
-            }
-            return movies;
+            
+            _context.MovieInfos.Add(movies);
+            _context.SaveChanges();
+           return movies;
         }
     }
 }
